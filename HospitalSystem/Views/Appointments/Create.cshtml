@@ -1,0 +1,140 @@
+﻿@model Appointment
+
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <div class="breadcrumb reveal">
+
+            <a asp-controller="Home" asp-action="Index">
+                Home
+            </a>
+
+            <span>/</span>
+
+            Book Appointment
+
+        </div>
+
+        <h1 class="reveal" data-delay="1">
+            Book an <span class="grad">appointment.</span>
+        </h1>
+
+        <p class="reveal" data-delay="2">
+            Choose your preferred date and time and book your appointment.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section-sm">
+
+    <div class="container" style="max-width:960px">
+
+        <div class="glass reveal" style="padding:40px">
+
+            <form asp-action="Create" method="post">
+
+                <input type="hidden" asp-for="DoctorId" />
+
+
+                @if (ViewBag.Doctor != null)
+                {
+                    <div class="form-group">
+
+                        <label>Doctor</label>
+
+                        <input class="form-control"
+                               value="@ViewBag.Doctor.Name - @ViewBag.Doctor.Specialization"
+                               readonly />
+
+                    </div>
+                }
+
+
+                <div class="form-group">
+
+                    <label asp-for="PatientName">
+                        Full name
+                    </label>
+
+                    <input asp-for="PatientName"
+                           class="form-control"
+                           placeholder="Your name"
+                           required />
+
+                    <span asp-validation-for="PatientName"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label asp-for="Date">
+                            Preferred date
+                        </label>
+
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control"
+                               required />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="Time">
+                            Preferred time
+                        </label>
+
+                        <input asp-for="Time"
+                               type="time"
+                               class="form-control"
+                               required />
+
+                    </div>
+
+                </div>
+
+
+                <p class="text-mute"
+                   style="font-size:13px;margin:8px 0 22px">
+
+                    Bookings available 8:00 AM – 10:00 PM.
+
+                </p>
+
+
+                <button type="submit"
+                        class="btn btn-primary"
+                        style="width:100%;justify-content:center">
+
+                    Request Appointment
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

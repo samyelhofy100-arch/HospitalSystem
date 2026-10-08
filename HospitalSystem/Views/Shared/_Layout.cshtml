@@ -1,0 +1,97 @@
+﻿@{
+    var ctrl = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HospitalSystem</title>
+   <link href="~/css/modern.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav" aria-label="Primary">
+        <a class="brand" asp-controller="Home" asp-action="Index">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-name">Unity<small>Hospital</small></span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a asp-controller="Home" asp-action="Index" class="@(ctrl == "Home" ? "active" : "")">Home</a></li>
+            <li><a asp-controller="Doctors" asp-action="Index" class="@(ctrl == "Doctors" ? "active" : "")">Make Appointment</a></li>
+            <li><a asp-controller="Appointments" asp-action="Index" class="@(ctrl == "Appointments" ? "active" : "")">View Appointments</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+                <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+                <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+            </button>
+            <a asp-controller="Doctors" asp-action="Index" class="btn btn-primary" style="padding:10px 18px;font-size:13px">
+                Book
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </a>
+            <button class="nav-burger" data-menu-open aria-label="Open menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu">
+        <button class="close" data-menu-close aria-label="Close menu">✕</button>
+        <a asp-controller="Home" asp-action="Index" class="@(ctrl == "Home" ? "active" : "")">Home</a>
+        <a asp-controller="Doctors" asp-action="Index" class="@(ctrl == "Doctors" ? "active" : "")">Make Appointment</a>
+        <a asp-controller="Appointments" asp-action="Index" class="@(ctrl == "Appointments" ? "active" : "")">View Appointments</a>
+    </div>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a class="brand" asp-controller="Home" asp-action="Index">
+                        <span class="brand-mark" aria-hidden="true"></span>
+                        <span class="brand-name">Unity<small>Hospital</small></span>
+                    </a>
+                    <p class="text-dim mt-6" style="max-width:340px;font-size:14px">
+                        A modern multi-speciality hospital committed to quality, ethical, and affordable healthcare.
+                    </p>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Doctors" asp-action="Index">Our Doctors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a asp-controller="Doctors" asp-action="Index">Make Appointment</a></li>
+                        <li><a asp-controller="Appointments" asp-action="Index">View Appointments</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+201000000000">+20 100 000 0000</a></li>
+                        <li><a href="mailto:info@unityhospital.com">info@unityhospital.com</a></li>
+                        <li style="color:var(--brand-3)">● 24/7 Emergency</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© @DateTime.Now.Year Unity Hospital. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/modern.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

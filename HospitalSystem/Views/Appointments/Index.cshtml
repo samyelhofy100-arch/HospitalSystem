@@ -1,0 +1,120 @@
+﻿@model List<Appointment>
+
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <div class="breadcrumb reveal">
+
+            <a asp-controller="Home" asp-action="Index">
+                Home
+            </a>
+
+            <span>/</span>
+
+            Appointments
+
+        </div>
+
+        <h1 class="reveal" data-delay="1">
+            Your <span class="grad">appointments.</span>
+        </h1>
+
+        <p class="reveal" data-delay="2">
+            View all booked appointments.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section-sm">
+
+    <div class="container">
+
+        @if (Model.Any())
+        {
+            <div class="glass reveal" style="padding:30px">
+
+                <div style="overflow-x:auto">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Patient Name</th>
+
+                                <th>Doctor ID</th>
+
+                                <th>Date</th>
+
+                                <th>Time</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var appointment in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @appointment.PatientName
+                                    </td>
+
+                                    <td>
+                                        @appointment.DoctorId
+                                    </td>
+
+                                    <td>
+                                        @appointment.Date.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+                                        @appointment.Time
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="glass reveal text-center" style="padding:40px">
+
+                <h3>No appointments yet.</h3>
+
+                <p class="text-mute">
+                    You don't have any appointments booked.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-primary">
+
+                    Book an Appointment
+
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</section>
