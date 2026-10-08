@@ -29,6 +29,45 @@
 
     <div class="container">
 
+        <!-- Filters -->
+
+        <form asp-controller="Doctors"
+              asp-action="Index"
+              method="get"
+              style="margin-bottom: 30px;">
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+
+                <input type="text"
+                       name="name"
+                       value="@ViewBag.Name"
+                       placeholder="Doctor Name"
+                       class="form-control" />
+
+                <input type="text"
+                       name="specialization"
+                       value="@ViewBag.Specialization"
+                       placeholder="Specialization"
+                       class="form-control" />
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Search
+                </button>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    Clear
+                </a>
+
+            </div>
+
+        </form>
+
+
+        <!-- Doctors -->
+
         <div class="doctor-grid">
 
             @foreach (var doctor in Model)
@@ -36,8 +75,10 @@
                 <div class="doctor-card reveal">
 
                     <div class="doctor-image">
+
                         <img src="~/img/team/@doctor.ImageUrl"
                              alt="@doctor.Name">
+
                     </div>
 
                     <div class="doctor-info">
@@ -63,6 +104,8 @@
         </div>
 
 
+        <!-- Pagination -->
+
         <div class="pagination-container">
 
             @if (ViewBag.CurrentPage > 1)
@@ -70,22 +113,35 @@
                 <a asp-controller="Doctors"
                    asp-action="Index"
                    asp-route-page="@(ViewBag.CurrentPage - 1)"
+                   asp-route-name="@ViewBag.Name"
+                   asp-route-specialization="@ViewBag.Specialization"
                    class="btn btn-secondary">
+
                     Previous
+
                 </a>
             }
 
+
             <span style="margin: 0 15px;">
-                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+
+                Page @ViewBag.CurrentPage
+                of @ViewBag.TotalPages
+
             </span>
+
 
             @if (ViewBag.CurrentPage < ViewBag.TotalPages)
             {
                 <a asp-controller="Doctors"
                    asp-action="Index"
                    asp-route-page="@(ViewBag.CurrentPage + 1)"
+                   asp-route-name="@ViewBag.Name"
+                   asp-route-specialization="@ViewBag.Specialization"
                    class="btn btn-primary">
+
                     Next
+
                 </a>
             }
 
@@ -94,3 +150,4 @@
     </div>
 
 </section>
+

@@ -1,7 +1,4 @@
-﻿using HospitalSystem.Data;
-using Microsoft.AspNetCore.Mvc;
-
-namespace HospitalSystem.Controllers
+﻿namespace HospitalSystem.Controllers
 {
     public class AppointmentsController : Controller
     {
@@ -49,9 +46,12 @@ namespace HospitalSystem.Controllers
 
         public IActionResult Index()
         {
-            var appointments = _context.Appointments.ToList();
+            var appointments = _context.Appointments
+                .Include(a => a.Doctor)
+                .ToList();
 
             return View(appointments);
         }
     }
 }
+
