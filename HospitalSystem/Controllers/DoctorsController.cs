@@ -14,24 +14,24 @@
 
             var doctors = _context.Doctors.AsQueryable();
 
-            // Filter by Doctor Name
+           
             if (!string.IsNullOrEmpty(name))
             {
                 doctors = doctors.Where(d =>
                     d.Name.Contains(name));
             }
 
-            // Filter by Specialization
+           
             if (!string.IsNullOrEmpty(specialization))
             {
                 doctors = doctors.Where(d =>
                     d.Specialization.Contains(specialization));
             }
 
-            // Count doctors after filtering
+          
             var totalDoctors = doctors.Count();
 
-            // Pagination
+            
             var doctorList = doctors
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -43,7 +43,7 @@
                 totalDoctors / (double)pageSize
             );
 
-            // Keep filter values
+           
             ViewBag.Name = name;
             ViewBag.Specialization = specialization;
 

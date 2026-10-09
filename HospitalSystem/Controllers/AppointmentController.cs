@@ -2,17 +2,17 @@
 {
     public class AppointmentsController : Controller
     {
-        private readonly HospitalSystemDbContext _context = new HospitalSystemDbContext();
+        private readonly HospitalSystemDbContext _context =
+            new HospitalSystemDbContext();
 
+        [HttpGet]
         public IActionResult Create(int doctorId)
         {
             var doctor = _context.Doctors
                 .FirstOrDefault(d => d.Id == doctorId);
 
             if (doctor == null)
-            {
                 return NotFound();
-            }
 
             ViewBag.Doctor = doctor;
 
@@ -28,20 +28,19 @@
         [ValidateAntiForgeryToken]
         public IActionResult Create(Appointment appointment)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Appointments.Add(appointment);
-                _context.SaveChanges();
+                ViewBag.Doctor = _context.Doctors
+                    .Find(appointment.DoctorId);
 
-                return RedirectToAction("Index");
+                return View(appointment);
             }
 
-            var doctor = _context.Doctors
-                .FirstOrDefault(d => d.Id == appointment.DoctorId);
+            _context.Appointments.Add(appointment);
 
-            ViewBag.Doctor = doctor;
+            _context.SaveChanges();
 
-            return View(appointment);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Index()
@@ -54,4 +53,3 @@
         }
     }
 }
-
